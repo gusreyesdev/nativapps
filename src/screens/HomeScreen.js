@@ -14,16 +14,18 @@ export const HomeScreen = () => {
 
     return (
       <>
-
-        <Image
-          source={{ uri: item.Poster }}
-          resizeMode='stretch'
-          style={{
-            width: width,
-            height: 500
-          }}
-        />
-
+        {
+          (item.Poster != "N/A") ?
+            <Image
+              source={{ uri: item.Poster }}
+              resizeMode='stretch'
+              style={{
+                width: width,
+                height: 500
+              }}
+            />
+            : null
+        }
 
         <View style={styles.containerText}>
 
@@ -44,6 +46,18 @@ export const HomeScreen = () => {
     )
   }
 
+  const ItemDivider = () => {
+    return (
+      <View
+        style={{
+          height: 1,
+          width: "100%",
+          backgroundColor: 'black',
+        }}
+      />
+    );
+  }
+
   return (
     <View style={{ flex: 1 }}>
 
@@ -51,15 +65,15 @@ export const HomeScreen = () => {
         {
           (isLoading) ?
             <ActivityIndicator
-              size='large'
+              size={80}
               color="#0000ff"
             />
-
             :
             <FlatList
               data={moviesList}
               keyExtractor={(item) => item._id}
               renderItem={({ item }) => renderItem(item)}
+              ItemSeparatorComponent={ItemDivider}
             />
         }
 
